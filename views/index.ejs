@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SolarRoof Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .navbar h1::before {
+            content: "🔆 ";
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .intro {
+            flex: 1 1 100%;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            color: #777;
+            font-size: 16px;
+        }
+
+        .card {
+            flex: 1 1 45%;
+            border: 1px solid #eee;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .buttons button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .select-button {
+            background-color: #f3f3f3;
+        }
+
+        .analyze-button {
+            background: linear-gradient(to right, #f09819, #ff512f);
+            color: white;
+        }
+
+        .results {
+            text-align: center;
+            color: #666;
+        }
+
+        .results h3 {
+            margin-top: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .results-icon {
+            font-size: 40px;
+            margin: 20px 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .main {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                flex: 1 1 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>SolarSwitch</h1>
+        <nav class="d-none d-md-flex gap-3">
+        <a href="/estimate" class="text-decoration-none text-muted">Estimator</a>
+        <a href="/ml-analysis" class="text-decoration-none text-muted">ML Analysis</a>
+        <a href="/incentives" class="text-decoration-none text-muted">Incentives</a>
+        <a href="/about" class="text-decoration-none text-muted">About</a>
+      </nav>
+        <div class="nav-links">
+            <a href="#">How It Works</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+
+    <div class="main">
+        <div class="intro">
+            <h2>Discover Your Roof's Solar Potential</h2>
+            <p>Upload a photo of your roof and our AI will estimate how much solar energy you could generate.</p>
+        </div>
+
+        <!-- Left: Image Upload -->
+        <div class="card">
+            <img id="preview" src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Aerial_view_of_a_rooftop.png" alt="Rooftop Preview">
+            <div class="buttons">
+                <button class="select-button" onclick="document.getElementById('imageInput').click()">Select Image</button>
+                <button class="analyze-button" onclick="analyzeImage()">Analyze Roof →</button>
+            </div>
+            <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="previewImage(event)">
+        </div>
+
+        <!-- Right: Results -->
+        <div class="card results" id="resultsCard">
+            <h3>Results</h3>
+            <div class="results-icon">🌤️</div>
+            <p id="resultText">No Analysis Yet</p>
+            <small>Upload a photo of your roof and click "Analyze Roof" to see your solar potential estimates.</small>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 SolarSwitch. All rights reserved.
+    </div>
+
+    <!-- <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('preview').src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        async function analyzeImage() {
+            const fileInput = document.getElementById('imageInput');
+            const resultText = document.getElementById('resultText');
+
+            if (!fileInput.files.length) {
+                resultText.textContent = 'Please select an image before analyzing.';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]);
+
+            resultText.textContent = 'Analyzing...';
+
+            try {
+                const response = await fetch('http://localhost:5000/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultText.innerHTML = `
+                        Estimated Area: <strong>${data.area} px²</strong><br>
+                        Solar Output: <strong>${data.solar_energy_output.toFixed(2)} kWh/day</strong>
+                    `;
+                } else {
+                    resultText.textContent = "Error: " + data.error;
+                }
+            } catch (err) {
+                resultText.textContent = "Server error. Make sure the backend is running.";
+            }
+        }
+    </script> -->
+   <script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('preview').src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    async function analyzeImage() {
+        const fileInput = document.getElementById('imageInput');
+        const resultText = document.getElementById('resultText');
+
+        if (!fileInput.files.length) {
+            resultText.textContent = 'Please select an image before analyzing.';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', fileInput.files[0]);
+
+        resultText.textContent = 'Analyzing...';
+
+        try {
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // --- Assumed Parameters ---
+                const areaInMeters = data.area * 0.0001; // assuming px² → m²
+                const panelEfficiency = 0.18;
+                const irradiance = 5.5; // kWh/m²/day
+                const unitRate = 8; // ₹ per unit
+                const costPerKW = 50000; // ₹ per kW
+
+                // --- Calculations ---
+                const dailyEnergy = areaInMeters * irradiance * panelEfficiency;
+                const monthlyEnergy = dailyEnergy * 30;
+                const installationKW = dailyEnergy / 4; // assume 4 units/day = 1kW
+                const installationCost = installationKW * costPerKW;
+                const monthlySavings = monthlyEnergy * unitRate;
+                const paybackPeriod = installationCost / monthlySavings;
+
+                // --- Display Results ---
+                resultText.innerHTML = `
+                    <strong>Estimation Summary</strong><br><br>
+                    🏠 Estimated Area: <strong>${data.area} px²</strong> (~${areaInMeters.toFixed(2)} m²)<br>
+                    ⚡ Daily Energy Output: <strong>${dailyEnergy.toFixed(2)} kWh/day</strong><br>
+                    💰 Installation Cost: <strong>₹${Math.round(installationCost).toLocaleString()}</strong><br>
+                    💡 Monthly Energy Generation: <strong>${monthlyEnergy.toFixed(1)} kWh</strong><br>
+                    🔋 Monthly Savings: <strong>₹${monthlySavings.toFixed(0)}</strong><br>
+                    ⏳ Payback Period: <strong>${paybackPeriod.toFixed(1)} years</strong>
+                `;
+            } else {
+                resultText.textContent = "Error: " + data.error;
+            }
+        } catch (err) {
+            resultText.textContent = "Server error. Make sure the backend is running.";
+        }
+    }
+</script>
+
+</body>
+</html>

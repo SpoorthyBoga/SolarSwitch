@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solar Incentives</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .tab-content .card {
+      border: none;
+      border-radius: 0;
+      padding: 1rem 0;
+    }
+    .card h5 {
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    .nav-tabs .nav-link.active {
+      border-color: transparent transparent #0d6efd;
+      color: #0d6efd;
+      font-weight: bold;
+    }
+    .nav-tabs .nav-link {
+      color: #6c757d;
+    }
+
+            .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .navbar h1::before {
+            content: "🔆 ";
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+  </style>
+</head>
+<body class="bg-light">
+
+    <div class="navbar">
+        <h1>SolarSwitch</h1>
+        <div class="nav-links">
+            <a href="#">How It Works</a>
+            <a href="/about">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+  <div class="container py-5">
+    <ul class="nav nav-tabs justify-content-center mb-4" id="incentiveTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="central-tab" data-bs-toggle="tab" data-bs-target="#central" type="button" role="tab">Federal Incentives</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="state-tab" data-bs-toggle="tab" data-bs-target="#state" type="button" role="tab">State Programs</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="ci-tab" data-bs-toggle="tab" data-bs-target="#ci" type="button" role="tab">Utility & Local</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="incentiveTabsContent">
+      <!-- Central Government -->
+      <div class="tab-pane fade show active" id="central" role="tabpanel">
+        <div class="card bg-white shadow-sm p-4">
+          <h4>Central Government Incentives</h4>
+          <p class="text-muted">Available for residential and commercial users in India.</p>
+
+          <h5>PM Surya Ghar Muft Bijli Yojana (2024)</h5>
+          <ul>
+            <li>₹30,000 subsidy for 1 kW</li>
+            <li>₹60,000 for 2 kW</li>
+            <li>₹78,000 for 3 kW or more (max cap)</li>
+            <li><strong>Free electricity:</strong> Up to 300 units/month</li>
+            <li>Portal: <a href="https://pmsuryaghar.gov.in" target="_blank">pmsuryaghar.gov.in</a></li>
+          </ul>
+
+          <h5>MNRE – Rooftop Solar Programme Phase-II</h5>
+          <ul>
+            <li>40% subsidy for the first 3 kW</li>
+            <li>20% subsidy for 3–10 kW capacity</li>
+            <li>Apply via MNRE portal or DISCOMs</li>
+          </ul>
+
+          <h5>Net Metering</h5>
+          <ul>
+            <li>Surplus power exported to grid</li>
+            <li>Credits reduce future bills</li>
+            <li>Mandatory in most states</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- State Programs -->
+      <div class="tab-pane fade" id="state" role="tabpanel">
+        <div class="card bg-white shadow-sm p-4">
+          <h4>State Solar Incentive Programs</h4>
+          <p class="text-muted">Many Indian states offer additional support beyond central schemes.</p>
+
+          <h5>Karnataka</h5>
+          <ul>
+            <li>Additional rooftop subsidy for homes</li>
+            <li>Easy approval via BESCOM/DISCOMs</li>
+          </ul>
+
+          <h5>Maharashtra</h5>
+          <ul>
+            <li>Net metering for societies & group housing</li>
+            <li>No extra subsidy, but regulatory ease</li>
+          </ul>
+
+          <h5>Gujarat</h5>
+          <ul>
+            <li>Up to 40% subsidy (≤3 kW)</li>
+            <li>Apply through GEDA</li>
+          </ul>
+
+          <h5>Telangana / Andhra Pradesh / Tamil Nadu</h5>
+          <ul>
+            <li>Net metering supported</li>
+            <li>Mostly rely on central MNRE subsidy</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Commercial & Industrial -->
+      <div class="tab-pane fade" id="ci" role="tabpanel">
+        <div class="card bg-white shadow-sm p-4">
+          <h4>Incentives for Commercial & Industrial Users</h4>
+          <p class="text-muted">Designed to encourage solar adoption among businesses.</p>
+
+          <h5>Accelerated Depreciation</h5>
+          <ul>
+            <li>Depreciate solar assets at 40% annually</li>
+            <li>Helps reduce taxable income</li>
+          </ul>
+
+          <h5>GST Benefits</h5>
+          <ul>
+            <li>5% GST on solar modules/components</li>
+          </ul>
+
+          <h5>Custom Duty Waivers</h5>
+          <ul>
+            <li>Applicable on select imported components</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-top bg-light py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <i data-lucide="sun" class="text-warning"></i>
+        <small class="text-muted">© 2025 SolarSwitch. All rights reserved.</small>
+      </div>
+      <nav class="d-flex gap-3">
+        <a href="#" class="text-muted text-decoration-none">Terms</a>
+        <a href="#" class="text-muted text-decoration-none">Privacy</a>
+        <a href="#" class="text-muted text-decoration-none">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
